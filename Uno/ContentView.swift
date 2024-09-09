@@ -28,7 +28,7 @@ struct ContentView: View {
 }
 
 struct CardView: View {
-    var isFaceUp: Bool = false
+    var isFaceUp: Bool = true
     @State var cardWidth: CGFloat = 10
     var body: some View {
         GeometryReader { geometry in
@@ -51,15 +51,15 @@ struct CardView: View {
     var outerEdge: some View {
         RoundedRectangle(cornerRadius: 15)
             .fill(.white)
-            .strokeBorder(.black, lineWidth: 2)
+            .strokeBorder(.black, lineWidth: 1)
     }
     
     @ViewBuilder
     var cardBackground: some View {
         let backgroundColor: Color = isFaceUp ? .blue : .black
-        RoundedRectangle(cornerRadius: 25)
-            .inset(by: 10)
-            .foregroundStyle(AngularGradient(colors: [backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,], center: .center))
+        RoundedRectangle(cornerRadius: 15 + 0.05 * cardWidth)
+            .inset(by: 0.05 * cardWidth)
+            .foregroundStyle(AngularGradient(colors: [backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor], center: .center))
 
     }
     
