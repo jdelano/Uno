@@ -8,28 +8,54 @@
 import SwiftUI
 
 struct ContentView: View {
+    let cardSymbols = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ⃠", "↺", "+2", "W", "+4"]
+    @State var cardCount = 4
     var body: some View {
         VStack {
-            CardView()
-            HStack {
-                CardView()
-                CardView()
+            ForEach(0..<cardCount, id: \.self) { index in
+                CardView(color: .blue, symbol: cardSymbols[index])
             }
             HStack {
-                CardView()
-                CardView()
-                CardView()
-                CardView()
-                CardView()
-                CardView()
+                Button(action: {
+                    cardCount += 1
+                }, label: {
+                    Text("Add\nCard")
+                })
+                Button(action: {
+                    print("tapped Remove Card")
+                }, label: {
+                    Text("""
+                         Remove
+                         Card
+                         """)
+                })
             }
         }
     }
 }
 
 struct CardView: View {
+    let color: Color
+    let symbol: String
     var isFaceUp: Bool = true
     @State var cardWidth: CGFloat = 10
+    
+    // Constants
+    let cardAspectRatio: CGFloat = 2/3
+    let baseCornerRadius: CGFloat = 15
+    let insetScale: CGFloat = 0.05
+    let sunburstOpacity: CGFloat = 0.8
+    let centerEllipseScale: CGFloat = 0.75
+    let centerEllipseRotation: CGFloat = 45
+    let frontTextScale: CGFloat = 0.5
+    let backTextScale: CGFloat = 0.3
+    let backTextRotation: CGFloat = -10
+    let backTextShadow: CGFloat = 5
+    let backTextShadowOffsetX: CGFloat = -3
+    let backTextShadowOffsetY: CGFloat = 5
+    let cornerTextScale: CGFloat = 0.2
+    let cornerPaddingScale: CGFloat = 0.1
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -45,54 +71,54 @@ struct CardView: View {
                 cardWidth = geometry.size.width
             }
         }
-        .aspectRatio(2/3, contentMode: .fit)
+        .aspectRatio(cardAspectRatio, contentMode: .fit)
     }
     
     var outerEdge: some View {
-        RoundedRectangle(cornerRadius: 15)
+        RoundedRectangle(cornerRadius: baseCornerRadius)
             .fill(.white)
-            .strokeBorder(.black, lineWidth: 1)
+            .strokeBorder(.black)
     }
     
     @ViewBuilder
     var cardBackground: some View {
-        let backgroundColor: Color = isFaceUp ? .blue : .black
-        RoundedRectangle(cornerRadius: 15 + 0.05 * cardWidth)
-            .inset(by: 0.05 * cardWidth)
-            .foregroundStyle(AngularGradient(colors: [backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor,backgroundColor.opacity(0.8), backgroundColor], center: .center))
+        let backgroundColor: Color = isFaceUp ? color : .black
+        RoundedRectangle(cornerRadius: baseCornerRadius + insetScale * cardWidth)
+            .inset(by: insetScale * cardWidth)
+            .foregroundStyle(AngularGradient(colors: [backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor], center: .center))
 
     }
     
     var centerEllipse: some View {
         Ellipse()
             .fill(isFaceUp ? .white : .red)
-            .frame(width: 0.75 * cardWidth, height: cardWidth)
-            .rotationEffect(.degrees(45))
+            .frame(width: centerEllipseScale * cardWidth, height: cardWidth)
+            .rotationEffect(.degrees(centerEllipseRotation))
     }
 
     @ViewBuilder
     var centerSymbol: some View {
         if isFaceUp {
-            Text("5")
+            Text(symbol)
                 .bold()
-                .foregroundStyle(.blue)
-                .font(.system(size: 0.5 * cardWidth))
+                .foregroundStyle(color)
+                .font(.system(size: frontTextScale * cardWidth))
 
         } else {
             Text("UNO")
                 .bold()
-                .font(.system(size: 0.3 * cardWidth))
+                .font(.system(size: backTextScale * cardWidth))
                 .foregroundStyle(LinearGradient(colors: [.yellow, .white], startPoint: .top, endPoint: .bottom))
-                .rotationEffect(.degrees(-10))
-                .shadow(color: .black, radius: 5, x: -3, y: 5)
+                .rotationEffect(.degrees(backTextRotation))
+                .shadow(color: .black, radius: backTextShadow, x: backTextShadowOffsetX, y: backTextShadowOffsetY)
 
         }
     }
     
     @ViewBuilder
     var cornerSymbols: some View {
-        let symbolText = Text("5")
-            .font(.system(size: 0.2 * cardWidth))
+        let symbolText = Text(symbol)
+            .font(.system(size: cornerTextScale * cardWidth))
             .bold()
             .foregroundStyle(.white)
         VStack {
@@ -108,7 +134,7 @@ struct CardView: View {
             }
             
         }
-        .padding(0.1 * cardWidth)
+        .padding(cornerPaddingScale * cardWidth)
 
     }
 }
