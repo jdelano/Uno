@@ -12,25 +12,55 @@ struct ContentView: View {
     @State var cardCount = 4
     var body: some View {
         VStack {
-            ForEach(0..<cardCount, id: \.self) { index in
-                CardView(color: .blue, symbol: cardSymbols[index])
+            Grid {
+                GridRow {
+                    ForEach(0..<cardCount, id: \.self) { index in
+                        CardView(color: .blue, symbol: cardSymbols[index])
+                    }
+
+                }
             }
-            HStack {
-                Button(action: {
-                    cardCount += 1
-                }, label: {
-                    Text("Add\nCard")
-                })
-                Button(action: {
-                    print("tapped Remove Card")
-                }, label: {
-                    Text("""
-                         Remove
-                         Card
-                         """)
-                })
+            Spacer()
+            Grid {
+                GridRow {
+                    
+                    ForEach(0..<cardCount, id: \.self) { index in
+                        CardView(color: .blue, symbol: cardSymbols[index])
+                    }
+
+                }
             }
+//            LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
+                
+//            }
         }
+        VStack {
+            HStack {
+                add
+                Spacer()
+                remove
+            }
+            .font(.largeTitle)
+            .padding(.horizontal)
+        }
+    }
+    
+    func cardCountAdjuster(by offset: Int, symbol: String) -> some View {
+        Button(action: {
+           cardCount += offset
+        }, label: {
+            Image(systemName: symbol)
+        })
+        .disabled(cardCount + offset < 1 || cardCount + offset > cardSymbols.count)
+    }
+    
+    var add: some View {
+        cardCountAdjuster(by: 1, symbol: "rectangle.stack.fill.badge.plus")
+    }
+    
+    var remove: some View {
+        cardCountAdjuster(by: -1, symbol: "rectangle.stack.fill.badge.minus")
+
     }
 }
 
@@ -38,23 +68,23 @@ struct CardView: View {
     let color: Color
     let symbol: String
     var isFaceUp: Bool = true
-    @State var cardWidth: CGFloat = 10
+    @State var cardWidth = 10.0
     
     // Constants
-    let cardAspectRatio: CGFloat = 2/3
-    let baseCornerRadius: CGFloat = 15
-    let insetScale: CGFloat = 0.05
-    let sunburstOpacity: CGFloat = 0.8
-    let centerEllipseScale: CGFloat = 0.75
-    let centerEllipseRotation: CGFloat = 45
-    let frontTextScale: CGFloat = 0.5
-    let backTextScale: CGFloat = 0.3
-    let backTextRotation: CGFloat = -10
-    let backTextShadow: CGFloat = 5
-    let backTextShadowOffsetX: CGFloat = -3
-    let backTextShadowOffsetY: CGFloat = 5
-    let cornerTextScale: CGFloat = 0.2
-    let cornerPaddingScale: CGFloat = 0.1
+    let cardAspectRatio = 2/3.0
+    let baseCornerRadius = 15.0
+    let insetScale = 0.05
+    let sunburstOpacity = 0.8
+    let centerEllipseScale = 0.75
+    let centerEllipseRotation = 45.0
+    let frontTextScale = 0.5
+    let backTextScale = 0.3
+    let backTextRotation = -10.0
+    let backTextShadow = 5.0
+    let backTextShadowOffsetX = -3.0
+    let backTextShadowOffsetY = 5.0
+    let cornerTextScale = 0.2
+    let cornerPaddingScale = 0.1
     
     var body: some View {
         GeometryReader { geometry in
@@ -69,6 +99,9 @@ struct CardView: View {
             }
             .onAppear {
                 cardWidth = geometry.size.width
+            }
+            .onChange(of: geometry.size.width) { oldWidth, newWidth in
+                cardWidth = newWidth
             }
         }
         .aspectRatio(cardAspectRatio, contentMode: .fit)
