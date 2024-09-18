@@ -65,9 +65,11 @@ struct ContentView: View {
 }
 
 struct CardView: View {
-    let color: Color
-    let symbol: String
-    var isFaceUp: Bool = true
+//    let color: Color
+//    let symbol: String
+//    var isFaceUp: Bool = true
+    let card: UnoGame.Card
+    
     @State var cardWidth = 10.0
     
     // Constants
@@ -93,7 +95,7 @@ struct CardView: View {
                 cardBackground
                 centerEllipse
                 centerSymbol
-                if isFaceUp {
+                if card.isFaceUp {
                     cornerSymbols
                 }
             }
@@ -115,7 +117,7 @@ struct CardView: View {
     
     @ViewBuilder
     var cardBackground: some View {
-        let backgroundColor: Color = isFaceUp ? color : .black
+        let backgroundColor: Color = isFaceUp ? card.color : .black
         RoundedRectangle(cornerRadius: baseCornerRadius + insetScale * cardWidth)
             .inset(by: insetScale * cardWidth)
             .foregroundStyle(AngularGradient(colors: [backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor], center: .center))
