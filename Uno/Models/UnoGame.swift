@@ -49,6 +49,7 @@ struct UnoGame {
             deck.append(Card(color: "Black", symbol: "W"))
             deck.append(Card(color: "Black", symbol: "+4"))
         }
+        deck.shuffle()
     }
     
     mutating func dealCards() {
