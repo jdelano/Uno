@@ -66,7 +66,9 @@ struct UnoGame {
         fileprivate(set) var hand: [Card] = []
     }
     
-    struct Card {
+    struct Card: Identifiable {
+        var id = UUID()
+        
         let color: String
         let symbol: String
         fileprivate(set) var isFaceUp: Bool = true

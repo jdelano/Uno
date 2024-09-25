@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@Observable
 class UnoGameManager {
     private var model: UnoGame
     
@@ -26,5 +27,11 @@ class UnoGameManager {
             case "Green": return .green
             default: return .black
         }
+    }
+    
+    // MARK: - Intents
+    
+    func resetGame() {
+        model.resetGame()
     }
 }
