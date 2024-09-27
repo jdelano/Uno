@@ -16,16 +16,16 @@ class UnoGameManager {
     }
     
     func cards(forPlayerIndex index: Int) -> [UnoGame.Card] {
-        model.players[index].hand
+        model.players[index].hand.allItems
     }
     
     func colorForCard(_ card: UnoGame.Card) -> Color {
         switch card.color {
-            case "Red": return .red
-            case "Yellow": return .yellow
-            case "Blue": return .blue
-            case "Green": return .green
-            default: return .black
+            case .red: return .red
+            case .yellow: return .yellow
+            case .blue: return .blue
+            case .green: return .green
+            case .wild: return .black
         }
     }
     

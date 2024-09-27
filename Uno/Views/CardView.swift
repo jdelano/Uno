@@ -8,12 +8,8 @@
 import SwiftUI
 
 struct CardView: View {
-    //    let color: Color
-    //    let symbol: String
-    //    var isFaceUp: Bool = true
     let card: UnoGame.Card
     @Environment(UnoGameManager.self) var gameManager
-    
     @State var cardWidth = 10.0
     
     // Constants

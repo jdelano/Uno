@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-//    let cardSymbols = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ⃠", "↺", "+2", "W", "+4"]
-//    @State var cardCount = 4
     @Environment(UnoGameManager.self) var gameManager
-
     
     var body: some View {
         VStack {

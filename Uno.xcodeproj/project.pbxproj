@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6558817F2CA1E9A600AAA24D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558817E2CA1E9A600AAA24D /* CardView.swift */; };
+		655881872CA4885000AAA24D /* Pile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655881862CA4885000AAA24D /* Pile.swift */; };
+		655881892CA4919400AAA24D /* UnoCardColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655881882CA4918F00AAA24D /* UnoCardColor.swift */; };
 		6566B4402C7CFDD50072B40C /* UnoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566B43F2C7CFDD50072B40C /* UnoApp.swift */; };
 		6566B4422C7CFDD50072B40C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566B4412C7CFDD50072B40C /* ContentView.swift */; };
 		6566B4442C7CFDD60072B40C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6566B4432C7CFDD60072B40C /* Assets.xcassets */; };
@@ -18,6 +20,8 @@
 
 /* Begin PBXFileReference section */
 		6558817E2CA1E9A600AAA24D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		655881862CA4885000AAA24D /* Pile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pile.swift; sourceTree = "<group>"; };
+		655881882CA4918F00AAA24D /* UnoCardColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnoCardColor.swift; sourceTree = "<group>"; };
 		6566B43C2C7CFDD50072B40C /* Uno.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Uno.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6566B43F2C7CFDD50072B40C /* UnoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnoApp.swift; sourceTree = "<group>"; };
 		6566B4412C7CFDD50072B40C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,7 +99,9 @@
 		65A27F2C2C9B4DFF00E69006 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				655881882CA4918F00AAA24D /* UnoCardColor.swift */,
 				65A27F2D2C9B4ED300E69006 /* UnoGame.swift */,
+				655881862CA4885000AAA24D /* Pile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -173,6 +179,8 @@
 				65A27F2E2C9B4ED300E69006 /* UnoGame.swift in Sources */,
 				6566B4422C7CFDD50072B40C /* ContentView.swift in Sources */,
 				65A27F302C9B574900E69006 /* UnoGameManager.swift in Sources */,
+				655881892CA4919400AAA24D /* UnoCardColor.swift in Sources */,
+				655881872CA4885000AAA24D /* Pile.swift in Sources */,
 				6566B4402C7CFDD50072B40C /* UnoApp.swift in Sources */,
 				6558817F2CA1E9A600AAA24D /* CardView.swift in Sources */,
 			);
