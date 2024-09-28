@@ -26,30 +26,42 @@ struct UnoGame {
         discardPile.reset()
         initializeDeck()
         dealCards()
-        discardPile.add(deck.draw())
+        if let card = deck.draw() {
+            discardPile.add(card)
+        }
     }
     
     mutating func initializeDeck() {
-        for color in UnoCardColor.allCases {
-            if color != .wild {
-                deck.add(Card(color: color, symbol: "0"))
-                for number in 1...9 {
-                    deck.add(Card(color: color, symbol: "\(number)"))
-                    deck.add(Card(color: color, symbol: "\(number)"))
-                }
-                
-                let specialCards = ["+2", " ⃠", "↺"]
-                for symbol in specialCards {
-                    deck.add(Card(color: color, symbol: symbol))
-                    deck.add(Card(color: color, symbol: symbol))
+        for cardType in UnoCardType.allCases {
+            for color in UnoCardColor.allCases {
+                if (cardType.isWildCard && color != .wild) ||
+                    (!cardType.isWildCard && color == .wild) { continue }
+                for _ in 0..<cardType.countInDeck {
+                    deck.add(Card(color: color, type: cardType))
                 }
             }
         }
-        
-        for _ in 0..<4 {
-            deck.add(Card(color: .wild, symbol: "W"))
-            deck.add(Card(color: .wild, symbol: "+4"))
-        }
+//        for color in UnoCardColor.allCases {
+//            if color != .wild {
+//                deck.add(Card(color: color, symbol: "0"))
+//                for number in 1...9 {
+//                    deck.add(Card(color: color, symbol: "\(number)"))
+//                    deck.add(Card(color: color, symbol: "\(number)"))
+//                }
+//                
+//                let specialCards = ["+2", " ⃠", "↺"]
+//                for symbol in specialCards {
+//                    deck.add(Card(color: color, symbol: symbol))
+//                    deck.add(Card(color: color, symbol: symbol))
+//                }
+//            }
+//        }
+//        
+//        for _ in 0..<4 {
+//            deck.add(Card(color: .wild, symbol: "W"))
+//            deck.add(Card(color: .wild, symbol: "+4"))
+//        }
+        print(deck.allItems.count)
         deck.shuffle()
     }
     
@@ -57,7 +69,9 @@ struct UnoGame {
         // Add logic here
         for playerIndex in 0..<players.count {
             for _ in 0..<7 {
-                players[playerIndex].hand.add(deck.draw())
+                if let card = deck.draw() {
+                    players[playerIndex].hand.add(card)
+                }
             }
         }
     }
@@ -71,7 +85,11 @@ struct UnoGame {
         var id = UUID()
         
         let color: UnoCardColor
-        let symbol: String
+        let type: UnoCardType
+        var symbol: String {
+            type.symbol
+        }
+        
         fileprivate(set) var isFaceUp: Bool = true
     }
     

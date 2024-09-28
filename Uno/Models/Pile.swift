@@ -14,8 +14,8 @@ struct Pile<T> {
         items.append(item)
     }
     
-    mutating func draw() -> T {
-        items.popLast()! // HACK: Need to fix this
+    mutating func draw() -> T? {
+        items.popLast()
     }
     
     mutating func shuffle() {
