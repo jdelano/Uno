@@ -24,13 +24,20 @@ struct ContentView: View {
     }
     
     func handForPlayer(playerIndex: Int) -> some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: -50) {
-                ForEach(gameManager.cards(forPlayerIndex: playerIndex)) { card in
-                    CardView(card: card)
-                }
+//        ScrollView(.horizontal) {
+//            HStack(spacing: -50) {
+//                ForEach(gameManager.cards(forPlayerIndex: playerIndex)) { card in
+//                    CardView(card: card)
+//                }
+//            }
+//        }
+        
+        LazyHGrid(rows: [GridItem(.adaptive(minimum: 100))]) {
+            ForEach(gameManager.cards(forPlayerIndex: playerIndex)) { card in
+                CardView(card: card)
             }
         }
+        .layoutPriority(1)
     }
     
 }
