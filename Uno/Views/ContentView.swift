@@ -15,7 +15,9 @@ struct ContentView: View {
             handForPlayer(playerIndex: 0)
             Spacer()
             Button("Reset") {
-                gameManager.resetGame()
+                withAnimation {
+                    gameManager.resetGame()
+                }
             }
             Spacer()
             handForPlayer(playerIndex: 1)
@@ -35,6 +37,7 @@ struct ContentView: View {
         LazyHGrid(rows: [GridItem(.adaptive(minimum: 100))]) {
             ForEach(gameManager.cards(forPlayerIndex: playerIndex)) { card in
                 CardView(card: card)
+                    .animation(.default, value: card)
             }
         }
         .layoutPriority(1)

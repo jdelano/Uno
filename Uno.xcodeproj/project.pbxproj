@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		653F5E982CB463B200B64B1A /* Playable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F5E972CB463B000B64B1A /* Playable.swift */; };
 		6558817F2CA1E9A600AAA24D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558817E2CA1E9A600AAA24D /* CardView.swift */; };
 		655881872CA4885000AAA24D /* Pile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655881862CA4885000AAA24D /* Pile.swift */; };
 		655881892CA4919400AAA24D /* UnoCardColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655881882CA4918F00AAA24D /* UnoCardColor.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		653F5E972CB463B000B64B1A /* Playable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
 		6558817E2CA1E9A600AAA24D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		655881862CA4885000AAA24D /* Pile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pile.swift; sourceTree = "<group>"; };
 		655881882CA4918F00AAA24D /* UnoCardColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnoCardColor.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		65A27F2C2C9B4DFF00E69006 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				653F5E972CB463B000B64B1A /* Playable.swift */,
 				655881882CA4918F00AAA24D /* UnoCardColor.swift */,
 				65A27F2D2C9B4ED300E69006 /* UnoGame.swift */,
 				655881862CA4885000AAA24D /* Pile.swift */,
@@ -184,6 +187,7 @@
 				6558818B2CA88AFD00AAA24D /* UnoCardType.swift in Sources */,
 				65A27F302C9B574900E69006 /* UnoGameManager.swift in Sources */,
 				655881892CA4919400AAA24D /* UnoCardColor.swift in Sources */,
+				653F5E982CB463B200B64B1A /* Playable.swift in Sources */,
 				655881872CA4885000AAA24D /* Pile.swift in Sources */,
 				6566B4402C7CFDD50072B40C /* UnoApp.swift in Sources */,
 				6558817F2CA1E9A600AAA24D /* CardView.swift in Sources */,
