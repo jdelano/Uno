@@ -74,7 +74,7 @@ struct CardView: View {
     @ViewBuilder
     var centerSymbol: some View {
         if card.isFaceUp {
-            Text(card.symbol)
+            cardSymbol(withColor: gameManager.colorForCard(card))
                 .bold()
                 .foregroundStyle(gameManager.colorForCard(card))
                 .font(.system(size: frontTextScale * cardWidth))
@@ -92,19 +92,21 @@ struct CardView: View {
     
     @ViewBuilder
     var cornerSymbols: some View {
-        let symbolText = Text(card.symbol)
+        let symbol = cardSymbol(withColor: .white)
+
             .font(.system(size: cornerTextScale * cardWidth))
+            .frame(width: cornerTextScale * cardWidth)
             .bold()
             .foregroundStyle(.white)
         VStack {
             HStack {
-                symbolText
+                symbol
                 Spacer()
             }
             Spacer()
             HStack {
                 Spacer()
-                symbolText
+                symbol
                     .rotationEffect(.degrees(180))
             }
             
@@ -112,11 +114,25 @@ struct CardView: View {
         .padding(cornerPaddingScale * cardWidth)
         
     }
+    
+    @ViewBuilder
+    func cardSymbol(withColor color: Color) -> some View {
+        switch card.type {
+            case .skip:
+                SkipSymbol(color: color)
+            case .reverse:
+                ReverseSymbol(color: color)
+            default:
+                Text(card.symbol)
+                    .underline(card.symbol == "6" || card.symbol == "9")
+        }
+    }
 }
 
 
 
 
-//#Preview {
-//    CardView()
-//}
+#Preview {
+    CardView(card: UnoGame.Card(color: .blue, type: .reverse))
+        .environment(UnoGameManager(players: ["Player 1"]))
+}
