@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum UnoCardType: CaseIterable, Equatable {
+enum UnoCardType: CaseIterable, Equatable, Hashable {
     static var allCases: [UnoCardType] {
         [.face(0), .face(1), .face(2), .face(3), .face(4), .face(5), .face(6), .face(7), .face(8), .face(9), .drawTwo, .skip, .reverse, .wild, .drawFour]
     }

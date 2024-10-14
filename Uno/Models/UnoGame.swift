@@ -81,7 +81,7 @@ struct UnoGame {
         fileprivate(set) var hand = Pile<Card>()
     }
     
-    struct Card: Identifiable, Equatable, Playable {
+    struct Card: Identifiable, Equatable, Playable, Hashable {
         
         var id = UUID()
         

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
+    
     let card: UnoGame.Card
     @Environment(UnoGameManager.self) var gameManager
     @State var cardWidth = 10.0
@@ -26,6 +27,7 @@ struct CardView: View {
     let backTextShadowOffsetX = -3.0
     let backTextShadowOffsetY = 5.0
     let cornerTextScale = 0.2
+    let cornerTextFrameScale = 0.3
     let cornerPaddingScale = 0.1
     
     var body: some View {
@@ -57,13 +59,18 @@ struct CardView: View {
     
     @ViewBuilder
     var cardBackground: some View {
+        let selected = gameManager.isCardSelected(card)
         let backgroundColor: Color = card.isFaceUp ? gameManager.colorForCard(card) : .black
+        let backgroundMainColor = selected ? backgroundColor.opacity(sunburstOpacity) : backgroundColor
+        let backgroundTransparentColor = selected ? backgroundColor : backgroundColor.opacity(sunburstOpacity)
         RoundedRectangle(cornerRadius: baseCornerRadius + insetScale * cardWidth)
             .inset(by: insetScale * cardWidth)
-            .foregroundStyle(AngularGradient(colors: [backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor], center: .center))
+            .foregroundStyle(AngularGradient(colors: Array(repeating: [backgroundMainColor, backgroundTransparentColor], count: 20).flatMap { $0 }, center: .center))
+            .animation(.linear.repeatForever(), value: selected)
         
     }
     
+//    [backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor]
     var centerEllipse: some View {
         Ellipse()
             .fill(card.isFaceUp ? .white : .red)
@@ -93,9 +100,8 @@ struct CardView: View {
     @ViewBuilder
     var cornerSymbols: some View {
         let symbol = cardSymbol(withColor: .white)
-
             .font(.system(size: cornerTextScale * cardWidth))
-            .frame(width: cornerTextScale * cardWidth)
+            .frame(width: cornerTextFrameScale * cardWidth)
             .bold()
             .foregroundStyle(.white)
         VStack {
@@ -133,6 +139,6 @@ struct CardView: View {
 
 
 #Preview {
-    CardView(card: UnoGame.Card(color: .blue, type: .reverse))
+    CardView(card: UnoGame.Card(color: .blue, type: .drawTwo))
         .environment(UnoGameManager(players: ["Player 1"]))
 }

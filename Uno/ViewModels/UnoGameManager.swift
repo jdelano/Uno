@@ -10,16 +10,17 @@ import SwiftUI
 @Observable
 class UnoGameManager {
     private var model: UnoGame
-    
+    typealias Card = UnoGame.Card
+    private var selectedCards: Set<Card> = []
     init(players: [String]) {
         self.model = UnoGame(players: players)
     }
     
-    func cards(forPlayerIndex index: Int) -> [UnoGame.Card] {
+    func cards(forPlayerIndex index: Int) -> [Card] {
         model.players[index].hand.allItems
     }
     
-    func colorForCard(_ card: UnoGame.Card) -> Color {
+    func colorForCard(_ card: Card) -> Color {
         switch card.color {
             case .red: return .red
             case .yellow: return .yellow
@@ -29,9 +30,20 @@ class UnoGameManager {
         }
     }
     
+    func isCardSelected(_ card: Card) -> Bool {
+        selectedCards.contains(card)
+    }
     // MARK: - Intents
     
     func resetGame() {
         model.resetGame()
+    }
+    
+    func toggleSelectedCard(_ card: Card) {
+        if isCardSelected(card) {
+            selectedCards.remove(card)
+        } else {
+            selectedCards.insert(card)
+        }
     }
 }

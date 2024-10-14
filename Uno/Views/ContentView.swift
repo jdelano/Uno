@@ -15,9 +15,7 @@ struct ContentView: View {
             handForPlayer(playerIndex: 0)
             Spacer()
             Button("Reset") {
-                withAnimation {
-                    gameManager.resetGame()
-                }
+                gameManager.resetGame()
             }
             Spacer()
             handForPlayer(playerIndex: 1)
@@ -26,18 +24,12 @@ struct ContentView: View {
     }
     
     func handForPlayer(playerIndex: Int) -> some View {
-//        ScrollView(.horizontal) {
-//            HStack(spacing: -50) {
-//                ForEach(gameManager.cards(forPlayerIndex: playerIndex)) { card in
-//                    CardView(card: card)
-//                }
-//            }
-//        }
-        
         LazyHGrid(rows: [GridItem(.adaptive(minimum: 100))]) {
             ForEach(gameManager.cards(forPlayerIndex: playerIndex)) { card in
                 CardView(card: card)
-                    .animation(.default, value: card)
+                    .onTapGesture {
+                        gameManager.toggleSelectedCard(card)
+                    }
             }
         }
         .layoutPriority(1)
