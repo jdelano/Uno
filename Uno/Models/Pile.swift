@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Pile<T> {
+struct Pile<T> where T: Playable {
     private var items: [T] = []
     
     mutating func add(_ item: T) {
@@ -28,5 +28,11 @@ struct Pile<T> {
     
     var allItems: [T] {
         items
+    }
+    
+    mutating func flipItems(isFaceUp: Bool) {
+        for index in items.indices {
+            items[index].isFaceUp = isFaceUp
+        }
     }
 }

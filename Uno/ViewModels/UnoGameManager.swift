@@ -35,6 +35,10 @@ class UnoGameManager {
     }
     // MARK: - Intents
     
+    func nextPlayer() {
+        model.nextPlayer()
+    }
+    
     func resetGame() {
         model.resetGame()
     }

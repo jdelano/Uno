@@ -69,7 +69,7 @@ struct CardView: View {
         RoundedRectangle(cornerRadius: baseCornerRadius + insetScale * cardWidth)
             .inset(by: insetScale * cardWidth)
             .foregroundStyle(AngularGradient(colors: Array(repeating: [backgroundMainColor, backgroundTransparentColor], count: 20).flatMap { $0 }, center: .center))
-            .animation(.linear.repeatForever(), value: selected)
+            .animation(.linear.repeatForever().when(selected), value: selected)
     }
     
     @ViewBuilder
@@ -137,7 +137,11 @@ struct CardView: View {
     }
 }
 
-
+extension Animation {
+    func when(_ condition: Bool) -> Animation? {
+        condition ? self : .linear(duration: 0.0)
+    }
+}
 
 
 #Preview {

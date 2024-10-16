@@ -8,6 +8,7 @@
 protocol Playable {
     var color: UnoCardColor { get }
     var type: UnoCardType { get }
+    var isFaceUp: Bool { get set }
     func canPlay(on topCard: Playable) -> Bool
 }
 

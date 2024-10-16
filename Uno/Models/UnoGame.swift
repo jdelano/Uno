@@ -11,7 +11,22 @@ struct UnoGame {
     private(set) var players: [Player]
     private(set) var deck = Pile<Card>()
     private(set) var discardPile = Pile<Card>()
-    private(set) var currentPlayerIndex: Int = 0
+    
+    private var _currentPlayerIndex: Int = 0 {
+        didSet {
+            for playerIndex in players.indices {
+                players[playerIndex].hand.flipItems(isFaceUp: playerIndex == _currentPlayerIndex)
+            }
+        }
+    }
+    
+    private(set) var currentPlayerIndex: Int
+    {
+        get { _currentPlayerIndex }
+        set {
+            _currentPlayerIndex = (newValue % players.count + players.count) % players.count
+        }
+    }
     
     init(players: [String]) {
         self.players = players.map { Player(name: $0) }
@@ -29,6 +44,7 @@ struct UnoGame {
         if let card = deck.draw() {
             discardPile.add(card)
         }
+        currentPlayerIndex = 0
     }
     
     mutating func initializeDeck() {
@@ -41,27 +57,6 @@ struct UnoGame {
                 }
             }
         }
-//        for color in UnoCardColor.allCases {
-//            if color != .wild {
-//                deck.add(Card(color: color, symbol: "0"))
-//                for number in 1...9 {
-//                    deck.add(Card(color: color, symbol: "\(number)"))
-//                    deck.add(Card(color: color, symbol: "\(number)"))
-//                }
-//                
-//                let specialCards = ["+2", " ⃠", "↺"]
-//                for symbol in specialCards {
-//                    deck.add(Card(color: color, symbol: symbol))
-//                    deck.add(Card(color: color, symbol: symbol))
-//                }
-//            }
-//        }
-//        
-//        for _ in 0..<4 {
-//            deck.add(Card(color: .wild, symbol: "W"))
-//            deck.add(Card(color: .wild, symbol: "+4"))
-//        }
-        print(deck.allItems.count)
         deck.shuffle()
     }
     
@@ -74,6 +69,14 @@ struct UnoGame {
                 }
             }
         }
+    }
+    
+    mutating func nextPlayer() {
+        currentPlayerIndex += 1
+    }
+    
+    mutating func reversePlayer() {
+        currentPlayerIndex -= 1
     }
     
     struct Player {
@@ -91,7 +94,7 @@ struct UnoGame {
             type.symbol
         }
         
-        fileprivate(set) var isFaceUp: Bool = true
+        var isFaceUp: Bool = false
     }
     
 }

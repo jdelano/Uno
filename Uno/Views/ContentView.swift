@@ -14,8 +14,17 @@ struct ContentView: View {
         VStack {
             handForPlayer(playerIndex: 0)
             Spacer()
-            Button("Reset") {
-                gameManager.resetGame()
+            HStack {
+                Button("Reset") {
+                    gameManager.resetGame()
+                }
+                Button("Next Player") {
+                    withAnimation {
+                        gameManager.nextPlayer()
+                    }
+    
+                }
+
             }
             Spacer()
             handForPlayer(playerIndex: 1)
@@ -27,6 +36,7 @@ struct ContentView: View {
         LazyHGrid(rows: [GridItem(.adaptive(minimum: 100))]) {
             ForEach(gameManager.cards(forPlayerIndex: playerIndex)) { card in
                 CardView(card: card)
+                    .rotation3DEffect(Angle(degrees: card.isFaceUp ? 0 : 180), axis: (x: 0, y: 1, z: 0))
                     .onTapGesture {
                         gameManager.toggleSelectedCard(card)
                     }
