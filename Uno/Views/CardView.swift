@@ -21,24 +21,26 @@ struct CardView: View {
     let centerEllipseScale = 0.75
     let centerEllipseRotation = 45.0
     let frontTextScale = 0.5
+    let cornerTextScale = 0.2
+    let cornerTextFrameScale = 0.3
+    let cornerPaddingScale = 0.1
     let backTextScale = 0.3
     let backTextRotation = -10.0
     let backTextShadow = 5.0
     let backTextShadowOffsetX = -3.0
     let backTextShadowOffsetY = 5.0
-    let cornerTextScale = 0.2
-    let cornerTextFrameScale = 0.3
-    let cornerPaddingScale = 0.1
-    
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 outerEdge
                 cardBackground
                 centerEllipse
-                centerSymbol
                 if card.isFaceUp {
+                    frontCenterSymbol
                     cornerSymbols
+                } else {
+                    backCenterSymbol
                 }
             }
             .onAppear {
@@ -70,7 +72,6 @@ struct CardView: View {
         
     }
     
-//    [backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor,backgroundColor.opacity(sunburstOpacity), backgroundColor]
     var centerEllipse: some View {
         Ellipse()
             .fill(card.isFaceUp ? .white : .red)
@@ -79,24 +80,24 @@ struct CardView: View {
     }
     
     @ViewBuilder
-    var centerSymbol: some View {
-        if card.isFaceUp {
-            cardSymbol(withColor: gameManager.colorForCard(card))
-                .bold()
-                .foregroundStyle(gameManager.colorForCard(card))
-                .font(.system(size: frontTextScale * cardWidth))
-            
-        } else {
-            Text("UNO")
-                .bold()
-                .font(.system(size: backTextScale * cardWidth))
-                .foregroundStyle(LinearGradient(colors: [.yellow, .white], startPoint: .top, endPoint: .bottom))
-                .rotationEffect(.degrees(backTextRotation))
-                .shadow(color: .black, radius: backTextShadow, x: backTextShadowOffsetX, y: backTextShadowOffsetY)
-            
-        }
+    var frontCenterSymbol: some View {
+        cardSymbol(withColor: gameManager.colorForCard(card))
+            .bold()
+            .foregroundStyle(gameManager.colorForCard(card))
+            .font(.system(size: frontTextScale * cardWidth))
     }
     
+    @ViewBuilder
+    var backCenterSymbol: some View {
+        Text("UNO")
+            .bold()
+            .font(.system(size: backTextScale * cardWidth))
+            .foregroundStyle(LinearGradient(colors: [.yellow, .white], startPoint: .top, endPoint: .bottom))
+            .rotationEffect(.degrees(backTextRotation))
+            .shadow(color: .black, radius: backTextShadow, x: backTextShadowOffsetX, y: backTextShadowOffsetY)
+        
+    }
+
     @ViewBuilder
     var cornerSymbols: some View {
         let symbol = cardSymbol(withColor: .white)
