@@ -34,12 +34,14 @@ struct CardView: View {
         GeometryReader { geometry in
             ZStack {
                 outerEdge
-                cardBackground
-                centerEllipse
                 if card.isFaceUp {
+                    cardBackground(withColor: gameManager.colorForCard(card))
+                    centerEllipse(withColor: .white)
                     frontCenterSymbol
                     cornerSymbols
                 } else {
+                    cardBackground(withColor: .black)
+                    centerEllipse(withColor: .red)
                     backCenterSymbol
                 }
             }
@@ -60,21 +62,20 @@ struct CardView: View {
     }
     
     @ViewBuilder
-    var cardBackground: some View {
+    func cardBackground(withColor color: Color) -> some View {
         let selected = gameManager.isCardSelected(card)
-        let backgroundColor: Color = card.isFaceUp ? gameManager.colorForCard(card) : .black
-        let backgroundMainColor = selected ? backgroundColor.opacity(sunburstOpacity) : backgroundColor
-        let backgroundTransparentColor = selected ? backgroundColor : backgroundColor.opacity(sunburstOpacity)
+        let backgroundMainColor = selected ? color.opacity(sunburstOpacity) : color
+        let backgroundTransparentColor = selected ? color : color.opacity(sunburstOpacity)
         RoundedRectangle(cornerRadius: baseCornerRadius + insetScale * cardWidth)
             .inset(by: insetScale * cardWidth)
             .foregroundStyle(AngularGradient(colors: Array(repeating: [backgroundMainColor, backgroundTransparentColor], count: 20).flatMap { $0 }, center: .center))
             .animation(.linear.repeatForever(), value: selected)
-        
     }
     
-    var centerEllipse: some View {
+    @ViewBuilder
+    func centerEllipse(withColor color: Color) -> some View {
         Ellipse()
-            .fill(card.isFaceUp ? .white : .red)
+            .fill(color)
             .frame(width: centerEllipseScale * cardWidth, height: cardWidth)
             .rotationEffect(.degrees(centerEllipseRotation))
     }
@@ -140,6 +141,6 @@ struct CardView: View {
 
 
 #Preview {
-    CardView(card: UnoGame.Card(color: .blue, type: .drawTwo))
+    CardView(card: UnoGame.Card(color: .blue, type: .drawTwo, isFaceUp: true))
         .environment(UnoGameManager(players: ["Player 1"]))
 }
