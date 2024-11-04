@@ -105,6 +105,10 @@ struct UnoGame {
             reshuffleDeckIfNeeded() // Ensure we have enough cards by reshuffling if needed
         }
         var cards = deck.draw(count)
+        // Set faceup status
+        for index in 0..<cards.count {
+            cards[index].isFaceUp = faceUp
+        }
         players[currentPlayerIndex].drawCards(cards)
     }
     
