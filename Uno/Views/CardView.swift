@@ -24,26 +24,15 @@ struct CardView: View {
     let cornerTextScale = 0.2
     let cornerTextFrameScale = 0.3
     let cornerPaddingScale = 0.1
-    let backTextScale = 0.3
-    let backTextRotation = -10.0
-    let backTextShadow = 5.0
-    let backTextShadowOffsetX = -3.0
-    let backTextShadowOffsetY = 5.0
 
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 outerEdge
-                if card.isFaceUp {
-                    cardBackground(withColor: gameManager.colorForCard(card))
-                    centerEllipse(withColor: .white)
-                    frontCenterSymbol
-                    cornerSymbols
-                } else {
-                    cardBackground(withColor: .black)
-                    centerEllipse(withColor: .red)
-                    backCenterSymbol
-                }
+                cardBackground(withColor: gameManager.colorForCard(card))
+                centerEllipse(withColor: .white)
+                frontCenterSymbol
+                cornerSymbols
             }
             .onAppear {
                 cardWidth = geometry.size.width
@@ -52,7 +41,6 @@ struct CardView: View {
                 cardWidth = newWidth
             }
         }
-        .aspectRatio(cardAspectRatio, contentMode: .fit)
     }
     
     var outerEdge: some View {
@@ -88,17 +76,6 @@ struct CardView: View {
             .font(.system(size: frontTextScale * cardWidth))
     }
     
-    @ViewBuilder
-    var backCenterSymbol: some View {
-        Text("UNO")
-            .bold()
-            .font(.system(size: backTextScale * cardWidth))
-            .foregroundStyle(LinearGradient(colors: [.yellow, .white], startPoint: .top, endPoint: .bottom))
-            .rotationEffect(.degrees(backTextRotation))
-            .shadow(color: .black, radius: backTextShadow, x: backTextShadowOffsetX, y: backTextShadowOffsetY)
-        
-    }
-
     @ViewBuilder
     var cornerSymbols: some View {
         let symbol = cardSymbol(withColor: .white)

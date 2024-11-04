@@ -7,27 +7,57 @@
 
 import Foundation
 
-struct Pile<T> where T: Playable {
+struct Pile<T> where T: Playable, T: Identifiable {
     private var items: [T] = []
     
     mutating func add(_ item: T) {
         items.append(item)
     }
     
+    mutating func add(contentsOf items: [T]) {
+        self.items.append(contentsOf: items)
+    }
+    
     mutating func draw() -> T? {
         items.popLast()
+    }
+    
+    mutating func draw(_ count: Int) -> [T] {
+        let drawnItems = items.suffix(count)
+        items.removeLast(count)
+        return Array(drawnItems)
     }
     
     mutating func shuffle() {
         items.shuffle()
     }
     
-    mutating func reset() {
-        items.removeAll()
+    mutating func reset(keepingLast: Bool = false) {
+        if keepingLast, let lastItem = items.last {
+            items = [lastItem]
+        } else {
+            items.removeAll()
+        }
     }
     
     var allItems: [T] {
         items
+    }
+    
+    var topItem: T? {
+        items.last
+    }
+    
+    var isEmpty: Bool {
+        items.isEmpty
+    }
+    
+    mutating func playItem(_ item: T) -> T? {
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            return items.remove(at: index)
+        } else {
+            return nil
+        }
     }
     
     mutating func flipItems(isFaceUp: Bool) {

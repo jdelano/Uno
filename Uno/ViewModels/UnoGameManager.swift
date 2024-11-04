@@ -12,6 +12,16 @@ class UnoGameManager {
     private var model: UnoGame
     typealias Card = UnoGame.Card
     private var selectedCards: Set<Card> = []
+    
+    var currentPlayerIndex: Int {
+        model.currentPlayerIndex
+    }
+    
+    var topDiscardCard: Card? {
+        model.topDiscardCard
+    }
+    
+    
     init(players: [String]) {
         self.model = UnoGame(players: players)
     }
@@ -50,4 +60,15 @@ class UnoGameManager {
             selectedCards.insert(card)
         }
     }
+    
+    func playCard(_ card: UnoGame.Card) {
+        if let discardCard = topDiscardCard, card.canPlay(on: discardCard) {
+            model.playCard(card)
+        }
+    }
+    
+    func dealCard() {
+        model.drawCardsForCurrentPlayer(1)
+    }
+
 }

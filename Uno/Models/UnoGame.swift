@@ -11,6 +11,7 @@ struct UnoGame {
     private(set) var players: [Player]
     private(set) var deck = Pile<Card>()
     private(set) var discardPile = Pile<Card>()
+    private var isReversed: Bool = false
     
     private var _currentPlayerIndex: Int = 0 {
         didSet {
@@ -33,6 +34,12 @@ struct UnoGame {
         resetGame()
     }
     
+    var topDiscardCard: Card? {
+        var card = discardPile.topItem
+        card?.isFaceUp = true
+        return card
+    }
+    
     mutating func resetGame() {
         for playerIndex in 0..<players.count {
             players[playerIndex].hand.reset()
@@ -45,6 +52,7 @@ struct UnoGame {
             discardPile.add(card)
         }
         currentPlayerIndex = 0
+        isReversed = false
     }
     
     mutating func initializeDeck() {
@@ -72,16 +80,73 @@ struct UnoGame {
     }
     
     mutating func nextPlayer() {
-        currentPlayerIndex += 1
+        currentPlayerIndex += isReversed ?  -1 : 1
     }
     
-    mutating func reversePlayer() {
-        currentPlayerIndex -= 1
+    mutating func reverseDirection() {
+        isReversed.toggle()
+    }
+    
+
+    mutating func reshuffleDeckIfNeeded() {
+        if deck.isEmpty, discardPile.allItems.count > 1 {
+            let cardsToReshuffle = discardPile.allItems.dropLast()
+            deck.add(contentsOf: Array(cardsToReshuffle))
+            deck.shuffle()
+            discardPile.reset(keepingLast: true)
+        }
+    }
+
+    // Draws a specific number of cards for the current player
+    mutating func drawCardsForCurrentPlayer(_ count: Int) {
+        let cards = deck.draw(count)
+        if cards.count < count {
+            reshuffleDeckIfNeeded() // Ensure we have enough cards by reshuffling if needed
+        }
+        players[currentPlayerIndex].drawCards(cards)
+    }
+    
+    mutating func playCard(_ card: Card) {
+        if let topDiscardCard = discardPile.topItem,
+           card.canPlay(on: topDiscardCard),
+           let card = players[currentPlayerIndex].hand.playItem(card) {
+            discardPile.add(card)
+            
+            // Handle special card effects
+            switch card.type {
+                case .reverse:
+                    reverseDirection()
+                    nextPlayer()
+                case .skip:
+                    nextPlayer() // Skip the next player
+                    nextPlayer()
+                case .drawTwo:
+                    nextPlayer()
+                    players[currentPlayerIndex].drawCards(deck.draw(2))
+                    nextPlayer()
+                case .wild:
+                    nextPlayer()
+                case .drawFour:
+                    nextPlayer()
+                    players[currentPlayerIndex].drawCards(deck.draw(4))
+                    nextPlayer()
+                default:
+                    nextPlayer()
+            }
+        }
     }
     
     struct Player {
         private(set) var name: String
         fileprivate(set) var hand = Pile<Card>()
+        
+        mutating func drawCard(_ card: Card) {
+            hand.add(card)
+        }
+        
+        mutating func drawCards(_ cards: [Card]) {
+            hand.add(contentsOf: cards)
+        }
     }
     
     struct Card: Identifiable, Equatable, Playable, Hashable {
