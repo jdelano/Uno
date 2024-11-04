@@ -12,7 +12,9 @@ struct UnoGame {
     private(set) var deck = Pile<Card>()
     private(set) var discardPile = Pile<Card>()
     private var isReversed: Bool = false
-    
+    // Optional property to store the selected color for Wild and Draw Four cards
+    var wildColor: UnoCardColor?
+
     private var _currentPlayerIndex: Int = 0 {
         didSet {
             for playerIndex in players.indices {
@@ -98,17 +100,17 @@ struct UnoGame {
     }
 
     // Draws a specific number of cards for the current player
-    mutating func drawCardsForCurrentPlayer(_ count: Int) {
-        let cards = deck.draw(count)
+    mutating func drawCardsForCurrentPlayer(_ count: Int, faceUp: Bool = false) {
         if cards.count < count {
             reshuffleDeckIfNeeded() // Ensure we have enough cards by reshuffling if needed
         }
+        var cards = deck.draw(count)
         players[currentPlayerIndex].drawCards(cards)
     }
     
     mutating func playCard(_ card: Card) {
         if let topDiscardCard = discardPile.topItem,
-           card.canPlay(on: topDiscardCard),
+           card.canPlay(on: topDiscardCard, wildColor: wildColor),
            let card = players[currentPlayerIndex].hand.playItem(card) {
             discardPile.add(card)
             
@@ -133,6 +135,9 @@ struct UnoGame {
                 default:
                     nextPlayer()
             }
+            if !card.type.isWildCard {
+                wildColor = nil
+            }
         }
     }
     
@@ -149,8 +154,7 @@ struct UnoGame {
         }
     }
     
-    struct Card: Identifiable, Equatable, Playable, Hashable {
-        
+    struct Card: Identifiable, Equatable, Playable, Hashable {        
         var id = UUID()
         
         let color: UnoCardColor
