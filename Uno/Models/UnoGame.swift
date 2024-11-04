@@ -101,7 +101,7 @@ struct UnoGame {
 
     // Draws a specific number of cards for the current player
     mutating func drawCardsForCurrentPlayer(_ count: Int, faceUp: Bool = false) {
-        if cards.count < count {
+        if deck.allItems.count < count {
             reshuffleDeckIfNeeded() // Ensure we have enough cards by reshuffling if needed
         }
         var cards = deck.draw(count)
