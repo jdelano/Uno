@@ -13,7 +13,7 @@ protocol Playable {
 }
 
 extension Playable {
-    func canPlay(on topCard: Playable, wildColor: UnoCardColor?) -> Bool {
+    func canPlay(on topCard: Playable, wildColor: UnoCardColor? = nil) -> Bool {
         self.color == topCard.color ||
         (self.color == wildColor && topCard.type.isWildCard) ||
         self.type == topCard.type ||
