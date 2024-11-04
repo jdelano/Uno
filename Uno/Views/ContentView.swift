@@ -13,10 +13,10 @@ struct ContentView: View {
     @State var draggedCard: Card?
     @GestureState var dragOffset: CGSize = .zero
     @State private var discardPileFrame: CGRect = .zero
-
     
     var body: some View {
-        ZStack {
+        @Bindable var gameManager = gameManager
+
             VStack {
                 handForPlayer(playerIndex: 0)
                     .zIndex(gameManager.currentPlayerIndex == 0 ? 1 : 0)
@@ -34,7 +34,9 @@ struct ContentView: View {
                 handForPlayer(playerIndex: 1)
                     .zIndex(gameManager.currentPlayerIndex == 1 ? 1 : 0)
             }
-        }
+            .actionSheet(isPresented: $gameManager.isChoosingColor) {
+                colorChooser
+            }
     }
     
     func handForPlayer(playerIndex: Int) -> some View {
@@ -66,6 +68,7 @@ struct ContentView: View {
                     .foregroundStyle(.white)
             }
         }
+        .shadow(color: gameManager.wildColor, radius: 10)
     }
     
     
@@ -127,6 +130,17 @@ struct ContentView: View {
                 gameManager.playCard(card)
             }
         }
+    }
+    
+    var colorChooser: ActionSheet {
+        ActionSheet(title: Text("Choose a Color"),
+                    message: Text("Select a color for the wild card"),
+                    buttons: [
+                        .default(Text("Red")) { gameManager.chooseWildColor(.red) },
+                         .default(Text("Green")) { gameManager.chooseWildColor(.green)},
+                          .default(Text("Yellow")) { gameManager.chooseWildColor(.yellow)},
+                           .default(Text("Blue")) { gameManager.chooseWildColor(.blue)}
+                    ])
     }
 }
 

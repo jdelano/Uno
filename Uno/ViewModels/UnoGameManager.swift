@@ -12,6 +12,21 @@ class UnoGameManager {
     private var model: UnoGame
     typealias Card = UnoGame.Card
     private var selectedCards: Set<Card> = []
+    var isChoosingColor: Bool = false
+    var wildColor: Color {
+        switch model.wildColor {
+            case .red:
+                return .red
+            case .blue:
+                return .blue
+            case .green:
+                return .green
+            case .yellow:
+                return .yellow
+            default:
+                return .clear
+        }
+    }
     
     var currentPlayerIndex: Int {
         model.currentPlayerIndex
@@ -63,12 +78,29 @@ class UnoGameManager {
     
     func playCard(_ card: UnoGame.Card) {
         if let discardCard = topDiscardCard, card.canPlay(on: discardCard) {
+            if card.type.isWildCard {
+                isChoosingColor = true
+            }
             model.playCard(card)
         }
     }
     
     func dealCard() {
-        model.drawCardsForCurrentPlayer(1)
+        model.drawCardsForCurrentPlayer(1, faceUp: true)
     }
 
+    func chooseWildColor(_ color: Color) {
+        switch color {
+            case .red:
+                model.wildColor = .red
+            case .green:
+                model.wildColor = .green
+            case .yellow:
+                model.wildColor = .yellow
+            case .blue:
+                model.wildColor = .blue
+            default:
+                model.wildColor = nil
+        }
+    }
 }
