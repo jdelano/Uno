@@ -77,7 +77,7 @@ class UnoGameManager {
     }
     
     func playCard(_ card: UnoGame.Card) {
-        if let discardCard = topDiscardCard, card.canPlay(on: discardCard) {
+        if let discardCard = topDiscardCard, card.canPlay(on: discardCard, wildColor: model.wildColor) {
             if card.type.isWildCard {
                 isChoosingColor = true
             }
