@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		653F5E982CB463B200B64B1A /* Playable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F5E972CB463B000B64B1A /* Playable.swift */; };
+		655605192CDBF9EA00EB2BF6 /* GameRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655605182CDBF9E800EB2BF6 /* GameRoute.swift */; };
+		6556051B2CDBFA1900EB2BF6 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556051A2CDBFA1700EB2BF6 /* HomeView.swift */; };
+		6556051D2CDBFB6C00EB2BF6 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556051C2CDBFB6500EB2BF6 /* GameView.swift */; };
+		6556051F2CDBFDED00EB2BF6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556051E2CDBFDEB00EB2BF6 /* SettingsView.swift */; };
+		655605212CDBFE0600EB2BF6 /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655605202CDBFE0400EB2BF6 /* InstructionsView.swift */; };
 		6558817F2CA1E9A600AAA24D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558817E2CA1E9A600AAA24D /* CardView.swift */; };
 		655881872CA4885000AAA24D /* Pile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655881862CA4885000AAA24D /* Pile.swift */; };
 		655881892CA4919400AAA24D /* UnoCardColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655881882CA4918F00AAA24D /* UnoCardColor.swift */; };
@@ -25,6 +30,11 @@
 
 /* Begin PBXFileReference section */
 		653F5E972CB463B000B64B1A /* Playable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
+		655605182CDBF9E800EB2BF6 /* GameRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoute.swift; sourceTree = "<group>"; };
+		6556051A2CDBFA1700EB2BF6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		6556051C2CDBFB6500EB2BF6 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		6556051E2CDBFDEB00EB2BF6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		655605202CDBFE0400EB2BF6 /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
 		6558817E2CA1E9A600AAA24D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		655881862CA4885000AAA24D /* Pile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pile.swift; sourceTree = "<group>"; };
 		655881882CA4918F00AAA24D /* UnoCardColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnoCardColor.swift; sourceTree = "<group>"; };
@@ -92,6 +102,11 @@
 		65A27F2A2C9B4DE200E69006 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				655605202CDBFE0400EB2BF6 /* InstructionsView.swift */,
+				6556051E2CDBFDEB00EB2BF6 /* SettingsView.swift */,
+				6556051C2CDBFB6500EB2BF6 /* GameView.swift */,
+				6556051A2CDBFA1700EB2BF6 /* HomeView.swift */,
+				655605182CDBF9E800EB2BF6 /* GameRoute.swift */,
 				65C0DB852CD8387900457638 /* Cardify.swift */,
 				65700A172CB704CF003573EB /* ReverseSymbol.swift */,
 				65700A152CB6FF0F003573EB /* SkipSymbol.swift */,
@@ -192,11 +207,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				65700A182CB704D3003573EB /* ReverseSymbol.swift in Sources */,
+				6556051B2CDBFA1900EB2BF6 /* HomeView.swift in Sources */,
+				655605192CDBF9EA00EB2BF6 /* GameRoute.swift in Sources */,
 				65A27F2E2C9B4ED300E69006 /* UnoGame.swift in Sources */,
+				6556051D2CDBFB6C00EB2BF6 /* GameView.swift in Sources */,
 				6566B4422C7CFDD50072B40C /* ContentView.swift in Sources */,
 				6558818B2CA88AFD00AAA24D /* UnoCardType.swift in Sources */,
 				65A27F302C9B574900E69006 /* UnoGameManager.swift in Sources */,
 				655881892CA4919400AAA24D /* UnoCardColor.swift in Sources */,
+				655605212CDBFE0600EB2BF6 /* InstructionsView.swift in Sources */,
+				6556051F2CDBFDED00EB2BF6 /* SettingsView.swift in Sources */,
 				65C0DB862CD8387C00457638 /* Cardify.swift in Sources */,
 				653F5E982CB463B200B64B1A /* Playable.swift in Sources */,
 				655881872CA4885000AAA24D /* Pile.swift in Sources */,

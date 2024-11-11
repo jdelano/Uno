@@ -28,6 +28,8 @@ class UnoGameManager {
         }
     }
     
+    
+    
     var currentPlayerIndex: Int {
         model.currentPlayerIndex
     }
@@ -36,6 +38,10 @@ class UnoGameManager {
         model.topDiscardCard
     }
     
+    var playerNames: [String] {
+        get { model.playerNames }
+        set { model.playerNames = newValue }
+    }
     
     init(players: [String]) {
         self.model = UnoGame(players: players)

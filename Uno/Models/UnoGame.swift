@@ -145,8 +145,17 @@ struct UnoGame {
         }
     }
     
+    var playerNames: [String] {
+        get { players.map { $0.name } }
+        set {
+            for index in 0..<newValue.count {
+                players[index].name = newValue[index]
+            }
+        }
+    }
+    
     struct Player {
-        private(set) var name: String
+        fileprivate(set) var name: String
         fileprivate(set) var hand = Pile<Card>()
         
         mutating func drawCard(_ card: Card) {

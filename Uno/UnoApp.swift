@@ -12,7 +12,7 @@ struct UnoApp: App {
     @State var gameManager = UnoGameManager(players: ["Player 1", "Player 2"])
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
                 .environment(gameManager)
         }
     }
