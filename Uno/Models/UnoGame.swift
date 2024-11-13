@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UnoGame {
+struct UnoGame : Codable {
     private(set) var players: [Player]
     private(set) var deck = Pile<Card>()
     private(set) var discardPile = Pile<Card>()
@@ -154,7 +154,7 @@ struct UnoGame {
         }
     }
     
-    struct Player {
+    struct Player: Codable {
         fileprivate(set) var name: String
         fileprivate(set) var hand = Pile<Card>()
         
@@ -167,7 +167,7 @@ struct UnoGame {
         }
     }
     
-    struct Card: Identifiable, Equatable, Playable, Hashable {        
+    struct Card: Identifiable, Equatable, Playable, Hashable, Codable {
         var id = UUID()
         
         let color: UnoCardColor

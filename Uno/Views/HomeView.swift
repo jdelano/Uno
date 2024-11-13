@@ -17,6 +17,11 @@ struct HomeView: View {
                 NavigationLink(value: GameRoute.game) {
                     homePageOption("Start New Game", color: .blue)
                 }
+                NavigationLink(value: GameRoute.resume) {
+                    homePageOption("Resume Game", color: .blue)
+                    
+                }
+
                 NavigationLink(value: GameRoute.instructions) {
                     homePageOption("Intructions", color: .green)
 
@@ -32,6 +37,7 @@ struct HomeView: View {
                     case .game: GameView()
                     case .instructions: InstructionsView()
                     case .settings: SettingsView()
+                    case .resume: GameView(isNewGame: false)
                 }
             }
         }

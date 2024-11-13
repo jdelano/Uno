@@ -7,9 +7,36 @@
 
 import SwiftUI
 
+
+extension UserDefaults {
+    func unoGame(forKey key: String) -> UnoGame? {
+        if let jsonData = data(forKey: key),
+           let decodedUnoGame = try? JSONDecoder().decode(UnoGame.self, from: jsonData) {
+            return decodedUnoGame
+        } else {
+            return nil
+        }
+    }
+    
+    func set(_ unoGame: UnoGame, forKey key: String) {
+        let data = try? JSONEncoder().encode(unoGame)
+        set(data, forKey: key)
+    }
+}
+
+
 @Observable
 class UnoGameManager {
-    private var model: UnoGame
+    private let userDefaultKey = "UnoGame.Settings"
+    
+    private var model: UnoGame {
+        didSet {
+            let defaults = UserDefaults.standard
+            defaults.set(model, forKey: userDefaultKey)
+        }
+    }
+    
+    
     typealias Card = UnoGame.Card
     private var selectedCards: Set<Card> = []
     var isChoosingColor: Bool = false
@@ -44,7 +71,12 @@ class UnoGameManager {
     }
     
     init(players: [String]) {
-        self.model = UnoGame(players: players)
+        if let savedGame = UserDefaults.standard.unoGame(forKey: userDefaultKey) {
+            self.model = savedGame
+        } else {
+            self.model = UnoGame(players: players)
+            UserDefaults.standard.set(self.model, forKey: userDefaultKey)
+        }
     }
     
     func cards(forPlayerIndex index: Int) -> [Card] {

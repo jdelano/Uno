@@ -11,6 +11,7 @@ struct GameView: View {
     @Environment(UnoGameManager.self) var gameManager
     
     @Environment(\.dismiss) var dismiss
+    var isNewGame: Bool = true
     
     var body: some View {
         VStack {
@@ -27,6 +28,11 @@ struct GameView: View {
             .buttonStyle(.borderedProminent)
         }
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            if isNewGame {
+                gameManager.resetGame()
+            }
+        }
     }
 }
 

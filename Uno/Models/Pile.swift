@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Pile<T> where T: Playable, T: Identifiable {
+struct Pile<T> : Codable where T: Playable, T: Identifiable, T: Codable {
     private var items: [T] = []
     
     mutating func add(_ item: T) {

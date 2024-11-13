@@ -6,6 +6,6 @@
 //
 
 enum GameRoute: Hashable {
-    case game, instructions, settings
+    case game, instructions, settings, resume
 }
 

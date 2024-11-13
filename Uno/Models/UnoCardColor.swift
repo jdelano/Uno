@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum UnoCardColor: CaseIterable {
+enum UnoCardColor: CaseIterable, Codable {
     case red, blue, green, yellow, wild
 }
