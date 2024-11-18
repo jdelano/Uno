@@ -25,6 +25,11 @@
 		65700A182CB704D3003573EB /* ReverseSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65700A172CB704CF003573EB /* ReverseSymbol.swift */; };
 		65A27F2E2C9B4ED300E69006 /* UnoGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A27F2D2C9B4ED300E69006 /* UnoGame.swift */; };
 		65A27F302C9B574900E69006 /* UnoGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A27F2F2C9B574900E69006 /* UnoGameManager.swift */; };
+		65A7493A2CEB8E6000FB65D6 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A749392CEB8E5C00FB65D6 /* SoundManager.swift */; };
+		65A7493F2CEB93E700FB65D6 /* playwild.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 65A7493E2CEB93E700FB65D6 /* playwild.mp3 */; };
+		65A749412CEB93E700FB65D6 /* playcard.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 65A7493D2CEB93E700FB65D6 /* playcard.mp3 */; };
+		65A749432CEB9BB700FB65D6 /* wrongspot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 65A749422CEB9BB700FB65D6 /* wrongspot.mp3 */; };
+		65A749452CEB9C4F00FB65D6 /* dealcard.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 65A749442CEB9C4F00FB65D6 /* dealcard.mp3 */; };
 		65C0DB862CD8387C00457638 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0DB852CD8387900457638 /* Cardify.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +53,11 @@
 		65700A172CB704CF003573EB /* ReverseSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseSymbol.swift; sourceTree = "<group>"; };
 		65A27F2D2C9B4ED300E69006 /* UnoGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnoGame.swift; sourceTree = "<group>"; };
 		65A27F2F2C9B574900E69006 /* UnoGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnoGameManager.swift; sourceTree = "<group>"; };
+		65A749392CEB8E5C00FB65D6 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		65A7493D2CEB93E700FB65D6 /* playcard.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = playcard.mp3; sourceTree = "<group>"; };
+		65A7493E2CEB93E700FB65D6 /* playwild.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = playwild.mp3; sourceTree = "<group>"; };
+		65A749422CEB9BB700FB65D6 /* wrongspot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wrongspot.mp3; sourceTree = "<group>"; };
+		65A749442CEB9C4F00FB65D6 /* dealcard.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dealcard.mp3; sourceTree = "<group>"; };
 		65C0DB852CD8387900457638 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +91,7 @@
 		6566B43E2C7CFDD50072B40C /* Uno */ = {
 			isa = PBXGroup;
 			children = (
+				65A7493B2CEB93DC00FB65D6 /* Sounds */,
 				6566B43F2C7CFDD50072B40C /* UnoApp.swift */,
 				65A27F2C2C9B4DFF00E69006 /* Models */,
 				65A27F2B2C9B4DF800E69006 /* ViewModels */,
@@ -119,6 +130,7 @@
 		65A27F2B2C9B4DF800E69006 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				65A749392CEB8E5C00FB65D6 /* SoundManager.swift */,
 				65A27F2F2C9B574900E69006 /* UnoGameManager.swift */,
 			);
 			path = ViewModels;
@@ -134,6 +146,17 @@
 				6558818A2CA88AFD00AAA24D /* UnoCardType.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		65A7493B2CEB93DC00FB65D6 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				65A7493D2CEB93E700FB65D6 /* playcard.mp3 */,
+				65A749442CEB9C4F00FB65D6 /* dealcard.mp3 */,
+				65A749422CEB9BB700FB65D6 /* wrongspot.mp3 */,
+				65A7493E2CEB93E700FB65D6 /* playwild.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +218,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6566B4472C7CFDD60072B40C /* Preview Assets.xcassets in Resources */,
+				65A7493F2CEB93E700FB65D6 /* playwild.mp3 in Resources */,
+				65A749412CEB93E700FB65D6 /* playcard.mp3 in Resources */,
+				65A749432CEB9BB700FB65D6 /* wrongspot.mp3 in Resources */,
+				65A749452CEB9C4F00FB65D6 /* dealcard.mp3 in Resources */,
 				6566B4442C7CFDD60072B40C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,6 +250,7 @@
 				6566B4402C7CFDD50072B40C /* UnoApp.swift in Sources */,
 				65700A162CB6FF17003573EB /* SkipSymbol.swift in Sources */,
 				6558817F2CA1E9A600AAA24D /* CardView.swift in Sources */,
+				65A7493A2CEB8E6000FB65D6 /* SoundManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
