@@ -114,17 +114,25 @@ class UnoGameManager {
         }
     }
     
+    @MainActor
     func playCard(_ card: UnoGame.Card) {
         if let discardCard = topDiscardCard, card.canPlay(on: discardCard, wildColor: model.wildColor) {
             if card.type.isWildCard {
                 isChoosingColor = true
+                playSound(.playWild)
+            } else {
+                playSound(.playCard)
             }
             model.playCard(card)
+        } else {
+            playSound(.wrongSpot)
         }
     }
     
+    @MainActor
     func dealCard() {
         model.drawCardsForCurrentPlayer(1, faceUp: true)
+        playSound(.dealCard)
     }
 
     func chooseWildColor(_ color: Color) {
@@ -141,4 +149,10 @@ class UnoGameManager {
                 model.wildColor = nil
         }
     }
+    
+    @MainActor
+    func playSound(_ effect: SoundEffect) {
+        SoundManager.shared.playSound(effect)
+    }
+    
 }
